@@ -72,6 +72,56 @@ namespace WindowsInput
         IKeyboardSimulator ModifiedKeyStroke(VirtualKeyCode modifierKeyCode, VirtualKeyCode keyCode);
 
         /// <summary>
+        /// Calls the Win32 SendInput method to simulate a KeyDown.
+        /// </summary>
+        /// <param name="dikCode">The <see cref="DirectInputKeyCode"/> to press</param>
+        IKeyboardSimulator KeyDown(DirectInputKeyCode dikCode);
+
+        /// <summary>
+        /// Calls the Win32 SendInput method to simulate a KeyUp.
+        /// </summary>
+        /// <param name="dikCode">The <see cref="DirectInputKeyCode"/> to lift up</param>
+        IKeyboardSimulator KeyUp(DirectInputKeyCode dikCode);
+
+        /// <summary>
+        /// Calls the Win32 SendInput method with a KeyDown and KeyUp message in the same input sequence in order to simulate a Key PRESS.
+        /// </summary>
+        /// <param name="dikCode">The <see cref="DirectInputKeyCode"/> to press</param>
+        IKeyboardSimulator KeyPress(DirectInputKeyCode dikCode);
+
+        /// <summary>
+        /// Simulates a simple modified keystroke like CTRL-C where CTRL is the modifierKey and C is the key.
+        /// The flow is Modifier KeyDown, Key Press, Modifier KeyUp.
+        /// </summary>
+        /// <param name="modifierDikCode">The modifier key</param>
+        /// <param name="dikCode">The key to simulate</param>
+        IKeyboardSimulator ModifiedKeyStroke(DirectInputKeyCode modifierDikCode, DirectInputKeyCode dikCode);
+
+        /// <summary>
+        /// Simulates a modified keystroke where there are multiple modifiers and one key like CTRL-ALT-C where CTRL and ALT are the modifierKeys and C is the key.
+        /// The flow is Modifiers KeyDown in order, Key Press, Modifiers KeyUp in reverse order.
+        /// </summary>
+        /// <param name="modifierDikCodes">The list of modifier keys</param>
+        /// <param name="dikCode">The key to simulate</param>
+        IKeyboardSimulator ModifiedKeyStroke(IEnumerable<DirectInputKeyCode> modifierDikCodes, DirectInputKeyCode dikCode);
+
+        /// <summary>
+        /// Simulates a modified keystroke where there is one modifier and multiple keys like CTRL-K-C where CTRL is the modifierKey and K and C are the keys.
+        /// The flow is Modifier KeyDown, Keys Press in order, Modifier KeyUp.
+        /// </summary>
+        /// <param name="modifierDikCode">The modifier key</param>
+        /// <param name="dikCodes">The list of keys to simulate</param>
+        IKeyboardSimulator ModifiedKeyStroke(DirectInputKeyCode modifierDikCode, IEnumerable<DirectInputKeyCode> dikCodes);
+
+        /// <summary>
+        /// Simulates a modified keystroke where there are multiple modifiers and multiple keys like CTRL-ALT-K-C where CTRL and ALT are the modifierKeys and K and C are the keys.
+        /// The flow is Modifiers KeyDown in order, Keys Press in order, Modifiers KeyUp in reverse order.
+        /// </summary>
+        /// <param name="modifierDikCodes">The list of modifier keys</param>
+        /// <param name="dikCodes">The list of keys to simulate</param>
+        IKeyboardSimulator ModifiedKeyStroke(IEnumerable<DirectInputKeyCode> modifierDikCodes, IEnumerable<DirectInputKeyCode> dikCodes);
+
+        /// <summary>
         /// Simulates uninterrupted text entry via the keyboard.
         /// </summary>
         /// <param name="text">The text to be simulated.</param>

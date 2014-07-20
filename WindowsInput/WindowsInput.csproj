@@ -59,6 +59,7 @@
     <Compile Include="MouseSimulator.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Native\HARDWAREINPUT.cs" />
+    <Compile Include="Native\DirectInputKeyCode.cs" />
     <Compile Include="IInputDeviceStateAdaptor.cs" />
     <Compile Include="IInputMessageDispatcher.cs" />
     <Compile Include="IKeyboardSimulator.cs" />
